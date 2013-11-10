@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bkg2"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/brideguestsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true" >
+		
+        <EditText
+        android:id="@+id/loginemail"
+        android:inputType="textEmailAddress"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/email" />
+    <EditText
+        android:id="@+id/password"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        android:layout_below="@id/loginemail"
+        android:fontFamily="sans-serif"
+        android:hint="@string/password"/>
+    <Button
+        android:id="@+id/loginSubmitButton"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/password"
+        android:layout_height="20dp"
+        android:background="@drawable/blue_box_no_border"
+        android:text="SUBMIT"
+        android:layout_marginRight="4dp"
+        style="@style/MyCoolButton"
+        />
+
+    <Button
+        android:id="@+id/forgotPasswordLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/loginSubmitButton"
+        android:layout_alignBottom="@+id/loginSubmitButton"
+        android:layout_alignLeft="@+id/password"
+        android:layout_marginLeft="14dp"
+        android:background="@android:color/transparent"
+        android:text="Forgot password?"
+        android:textSize="12dp" />
+
+	</RelativeLayout>
+</RelativeLayout>

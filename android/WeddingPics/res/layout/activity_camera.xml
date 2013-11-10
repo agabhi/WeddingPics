@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+     <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text="Click Picture than write desctiption and save it in album." 
+        android:textColor="@color/Steel_Blue"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:background="@color/Marble_Blue"/>
+     
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="270dp"
+        android:background="@drawable/album_profile" />
+    
+     <EditText
+        android:id="@+id/pictureDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp"
+        android:textColor="@color/Steel_Blue"
+        android:background="@color/Marble_Blue"
+        android:hint="Picture Description" />
+    
+
+    <Button
+        android:id="@+id/click_photo"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp"
+        android:text="TAKE PHOTO" 
+        android:textColor="@color/Steel_Blue"
+        android:onClick="onClick"
+        android:background="@color/Marble_Blue"/>
+    
+    <Button
+        android:id="@+id/save_photo"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="3dp"
+        android:textColor="@color/Steel_Blue"
+        android:text="SAVE PHOTO"
+        android:background="@color/Marble_Blue" />
+    
+     <Button
+        android:id="@+id/cover_photo"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="3dp"
+        android:textColor="@color/Steel_Blue"
+        android:text="MAKE ALBUM COVER"
+        android:background="@color/Marble_Blue" />
+  
+
+</LinearLayout>

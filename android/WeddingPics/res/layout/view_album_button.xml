@@ -1,0 +1,34 @@
+<RelativeLayout 
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_height="wrap_content" android:layout_width="wrap_content"
+   android:padding="5dp"
+   android:background="@drawable/blue_box"
+   android:clickable="true"
+   android:focusable="true"
+   android:id="@+id/viewAlbumButton">
+    <TextView
+      android:id="@+id/buttonSmallText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="8sp"
+      android:textColor="@color/white"
+      android:layout_alignParentTop="true"
+      android:text="Did you fiancee already create an album?">
+   </TextView>
+    <TextView
+      android:id="@+id/buttonText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="16sp"
+      android:textColor="@color/white"
+      android:layout_below="@id/buttonSmallText"
+      android:text="JOIN A WEDPICS ALBUM">
+   </TextView>
+   <ImageView
+      android:layout_width="wrap_content"
+      android:src="@drawable/rarr"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_alignParentRight="true"
+    />
+</RelativeLayout>

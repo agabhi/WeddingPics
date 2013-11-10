@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bkg2"
+    android:orientation="vertical" 
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:id="@+id/enterWeddingIdLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <include
+            android:id="@+id/createAlbumbutton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/new_album_button" >
+        </include>
+        
+        <include
+            android:id="@+id/viewAlbumButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/createAlbumbutton"
+            layout="@layout/view_album_button" >
+        </include>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/lightgray"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+       
+        <TextView android:layout_width="wrap_content" 
+            android:id="@+id/texter"
+            android:textColor="@color/black_overlay"
+          android:layout_height="wrap_content" 
+          android:textSize="8sp"
+          android:layout_marginRight="10dp"
+          android:layout_marginTop="4dp"
+          android:text="ALREADY HAVE AN ACCOUNT?"/>
+        
+        <Button
+            android:id="@+id/loginLinkButton"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_toRightOf="@id/texter"
+            android:background="@drawable/blue_box_no_border"
+            android:padding="-10dp"
+            android:text="LOGIN"
+            android:textSize="8dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

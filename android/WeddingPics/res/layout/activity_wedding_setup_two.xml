@@ -1,0 +1,83 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/tweed_bkg"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".WeddingSetupOneActivity" >
+
+   <EditText
+        android:id="@+id/firstNameInput"
+        android:inputType="textPersonName"
+        android:layout_width="fill_parent"
+        android:textColor="@color/white"
+        android:typeface="serif"
+        android:textColorHint="@color/white"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_box_1"
+        android:hint="YOUR FIRST NAME" />
+    
+   <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="30dp">
+       <Button android:text="BRIDE" android:textColor="@color/white" android:layout_width="0dp" android:layout_weight="1" android:background="@drawable/button_gray_pink" android:layout_height="wrap_content"
+           android:layout_marginRight="10dp"/>
+       <Button android:text="GROOM" android:textColor="@color/white" android:layout_width="0dp" android:layout_weight="1" android:background="@drawable/button_gray_blue" android:layout_height="wrap_content"
+           android:layout_marginRight="10dp"/>
+       <Button android:text="PARTNER" android:textColor="@color/white" android:layout_width="0dp" android:layout_weight="1" android:background="@drawable/button_gray_purple" android:layout_height="wrap_content"/>
+   </LinearLayout>
+   
+   <EditText
+        android:id="@+id/fianceNameInput"
+        android:inputType="textPersonName"
+        android:layout_width="fill_parent"
+        android:textColor="@color/white"
+        android:typeface="serif"
+        android:textColorHint="@color/white"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_box_1"
+        android:hint="FIANCE(E) FIRST NAME" />
+    
+   <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="30dp">
+       <Button android:text="BRIDE" android:textColor="@color/white" android:layout_width="0dp" android:layout_weight="1" android:background="@drawable/button_gray_pink" android:layout_height="wrap_content"
+           android:layout_marginRight="10dp"/>
+       <Button android:text="GROOM" android:textColor="@color/white" android:layout_width="0dp" android:layout_weight="1" android:background="@drawable/button_gray_blue" android:layout_height="wrap_content"
+           android:layout_marginRight="10dp"/>
+       <Button android:text="PARTNER" android:textColor="@color/white" android:layout_width="0dp" android:layout_weight="1" android:background="@drawable/button_gray_purple" android:layout_height="wrap_content"/>
+   </LinearLayout>
+   
+   <EditText
+        android:id="@+id/weddingDateInput"
+        android:inputType="none"
+        android:editable="false"
+        android:layout_width="fill_parent"
+        android:textColor="@color/white"
+        android:typeface="serif"
+        android:textColorHint="@color/white"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_box_1"
+        android:hint="WEDDING DATE" />
+   
+   <EditText
+        android:id="@+id/weddingIdInput"
+        android:inputType="text"
+        android:layout_width="fill_parent"
+        android:textColor="@color/white"
+        android:typeface="serif"
+        android:textColorHint="@color/white"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_box_1"
+        android:hint="ENTER YOUR WEDDING ID" />
+   
+   <include
+        android:id="@+id/nextbtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/next_pink_button" >
+    </include>
+   
+    </LinearLayout>
+    
+	

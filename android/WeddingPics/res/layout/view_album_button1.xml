@@ -1,0 +1,28 @@
+<RelativeLayout 
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_height="wrap_content" android:layout_width="wrap_content"
+   android:padding="5dp"
+   android:background="@drawable/pink_box"
+   android:clickable="true"
+   android:focusable="true"
+   android:id="@+id/newAlbumButton">
+    
+   <ImageView
+      android:id="@+id/rarr"
+      android:layout_width="wrap_content"
+      android:src="@drawable/rarr"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_alignParentRight="true"
+    />
+   <TextView
+      android:id="@+id/buttonText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="16sp"
+      android:textColor="@color/white"
+      android:layout_marginRight="10dp"
+      android:layout_centerInParent="true"
+      android:text="GO TO WEDDING ALBUM">
+   </TextView>
+</RelativeLayout>

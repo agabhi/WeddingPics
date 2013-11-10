@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/tweed_bkg"
+    android:orientation="vertical"
+    tools:context=".WeddingSetupOneActivity" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/black_box_no_border"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
+
+            <TextView
+                android:id="@+id/YourWeddingId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Wedding ID: "
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/weddingId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/YourWeddingId"
+                android:text="123456"
+                android:textColor="@color/pink"
+                android:textSize="8sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/weddingId"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/YourWeddingId"
+        android:text="YOUR WEDPICS ALBUM IS READY!"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/pink"
+        android:textSize="10sp" />
+
+    <include
+        android:id="@+id/nextbtn"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content"
+        layout="@layout/invite_guests_button" >
+    </include>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* Invite more guests. Get more photos."
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/white"
+        android:textSize="7sp" />
+
+    <include
+        android:id="@+id/goToAlbmBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        layout="@layout/view_album_button1" >
+    </include>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* Start by adding photos of you and your fiance!"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/white"
+        android:textSize="7sp" />
+
+</LinearLayout>

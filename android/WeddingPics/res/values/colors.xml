@@ -1,0 +1,17 @@
+<resources>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="white">#ffffff</color>
+    <color name="pink">#f10075</color>
+    <color name="lightgray">#B8B8B8</color>
+    
+    <color name="Bright_Neon_Pink">#F433FF</color>
+    <color name="Deep_Pink">#F52887</color>
+    <color name="Cloudy_Gray">#5C5858</color>
+    <color name="gray">#6D6968</color>
+   
+    <color name="Platinum">#D1D0CE</color>
+    <color name="Steel_Blue">#4863A0</color>
+    <color name="Marble_Blue">#2C3539</color>
+
+</resources>
