@@ -53,7 +53,7 @@ public class UserController {
 	
 	public static final EmailValidator emailValidator = new EmailValidator();
 	
-	public static String IMAGE_LOCATION = "/weddingpics/images/";
+	public static String IMAGE_LOCATION = "/weddingpics/images/albums/";
 	public static String IMAGE_URL_PREFIX = "http://ec2-54-200-230-189.us-west-2.compute.amazonaws.com/images/albums/";
 	
 	/**
