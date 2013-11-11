@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 
+import com.weddingpics.HomeActivity;
 import com.weddingpics.model.HttpRequestObject;
 import com.weddingpics.util.HttpRequestCall;
 
@@ -20,7 +21,7 @@ public class SaveImageService {
 	
 private static SaveImageService instance = new SaveImageService();
 
-	private final static String SAVE_IMAGE_URL = "http://10.0.2.2:8080/weddingpics/uc/saveImage?";
+	private final static String SAVE_IMAGE_URL = HomeActivity.WP_SERVER_PATH+"uc/saveImage?";
 	
 	public static SaveImageService getInstance() {
 		return instance;

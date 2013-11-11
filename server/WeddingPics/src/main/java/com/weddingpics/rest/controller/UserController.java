@@ -222,7 +222,7 @@ public class UserController {
 				if (album != null) {
 					com.weddingpics.rest.model.Album albumModel =  EntityToVOConverter.convertToVO(album);
 					if (StringUtils.isNotBlank(album.getCoverImage())) {
-						album.setCoverImage(IMAGE_URL_PREFIX+"/"+album.getAlbumId()+"/"+album.getCoverImage());
+						album.setCoverImage(IMAGE_URL_PREFIX+album.getAlbumId()+"/"+album.getCoverImage());
 					}
 					response.setAlbum(albumModel);
 					if (CollectionUtils.isNotEmpty(album.getPictures())) {
@@ -230,7 +230,7 @@ public class UserController {
 						response.setPictures(pictures);
 						for (com.weddingpics.rest.entity.Picture picture :album.getPictures()) {
 							Picture pictureModel = EntityToVOConverter.convertToVO(picture);
-							pictureModel.setUrl(IMAGE_URL_PREFIX+"/"+album.getAlbumId()+"/"+picture.getUrl());
+							pictureModel.setUrl(IMAGE_URL_PREFIX+album.getAlbumId()+"/"+picture.getUrl());
 							com.weddingpics.rest.model.User user = new com.weddingpics.rest.model.User();
 							user.setFullName(picture.getUser().getFullName());
 							pictureModel.setUser(user);
