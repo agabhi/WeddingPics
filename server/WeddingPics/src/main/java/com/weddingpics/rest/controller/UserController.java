@@ -53,6 +53,9 @@ public class UserController {
 	
 	public static final EmailValidator emailValidator = new EmailValidator();
 	
+	public static String IMAGE_LOCATION = "/weddingpics/images/";
+	public static String IMAGE_URL_PREFIX = "http://ec2-54-200-230-189.us-west-2.compute.amazonaws.com/images/albums/";
+	
 	/**
 	 * This method check if user exist or not than crate new user and create album for that user.
 	 * @param model
@@ -217,12 +220,17 @@ public class UserController {
 		if (StringUtils.isNotBlank(weddingId)) {
 				Album album = albumService.findAlbumByWeddingId(weddingId);
 				if (album != null) {
-					response.setAlbum(EntityToVOConverter.convertToVO(album));
+					com.weddingpics.rest.model.Album albumModel =  EntityToVOConverter.convertToVO(album);
+					if (StringUtils.isNotBlank(album.getCoverImage())) {
+						album.setCoverImage(IMAGE_URL_PREFIX+"/"+album.getAlbumId()+"/"+album.getCoverImage());
+					}
+					response.setAlbum(albumModel);
 					if (CollectionUtils.isNotEmpty(album.getPictures())) {
 						List<Picture> pictures = new ArrayList<Picture>();
 						response.setPictures(pictures);
 						for (com.weddingpics.rest.entity.Picture picture :album.getPictures()) {
 							Picture pictureModel = EntityToVOConverter.convertToVO(picture);
+							pictureModel.setUrl(IMAGE_URL_PREFIX+"/"+album.getAlbumId()+"/"+picture.getUrl());
 							com.weddingpics.rest.model.User user = new com.weddingpics.rest.model.User();
 							user.setFullName(picture.getUser().getFullName());
 							pictureModel.setUser(user);
@@ -270,18 +278,17 @@ public class UserController {
 				// Converting a Base64 String into Image byte array
 	            byte[] imageByteArray = decodeImage(imageDataString);
 	             
-	           String imgatePath = "";
-	           String albumPath =  "images/albums/"+album.getAlbumId();;
-	            if (imageType.equals(ImageTypeEnum.WEDDING.getValue())) {
-	            	  SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmmss");
-	            	  imgatePath = "images/albums/"+album.getAlbumId()+"/"+dateFormat.format(new Date())+".jpg";
-	            } else if (imageType.equals(ImageTypeEnum.COVER.getValue())) {
-	            	 imgatePath = "images/albums/"+album.getAlbumId()+"/cover_image.jpg";
-	            }
+	           SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmmss");
+	           String imageName  = "";
+	           if (imageType.equals(ImageTypeEnum.WEDDING.getValue())) {
+	        	   imageName = dateFormat.format(new Date())+".jpg";
+	           } else {
+	        	   imageName = "cover_image.jpg"; 
+	           }
 	           
 	            ServletContext context = RequestContextUtils.getWebApplicationContext(request).getServletContext();
-	            String imageFullPath = context.getRealPath(imgatePath);
-	            String albumFullPath = context.getRealPath(albumPath);
+	            String imageFullPath = IMAGE_LOCATION + album.getAlbumId()+"/"+imageName;
+	            String albumFullPath = IMAGE_LOCATION + album.getAlbumId();
 	            // Write a image byte array into file system
 	            File file = new File(albumFullPath);
 	            if (!file.exists()) {
@@ -294,7 +301,7 @@ public class UserController {
 				if (album != null && user != null) {
 					if (!imageType.equals(ImageTypeEnum.COVER.getValue())) {
 						com.weddingpics.rest.entity.Picture picture = new com.weddingpics.rest.entity.Picture();
-						picture.setUrl("http://10.0.2.2:8080/weddingpics/"+imgatePath);
+						picture.setUrl(imageName);
 						picture.setPictureDate(new Date());
 						picture.setPictureTitle(imageDesc);
 						picture.setImageType(imageType);
@@ -302,7 +309,7 @@ public class UserController {
 						picture.setUser(user);
 						pictureService.addPicture(picture);
 					} else {
-						album.setCoverImage("http://10.0.2.2:8080/weddingpics/"+imgatePath);
+						album.setCoverImage(imageName);
 						albumService.UpdateAlbum(album);
 					}
 					response.setIsSuccess(true);
