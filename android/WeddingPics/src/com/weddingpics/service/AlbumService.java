@@ -6,6 +6,7 @@ import java.util.HashMap;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.weddingpics.HomeActivity;
 import com.weddingpics.model.HttpRequestObject;
 import com.weddingpics.util.HttpRequestCall;
 
@@ -13,8 +14,8 @@ public class AlbumService {
 
 private static AlbumService instance = new AlbumService();
 	
-	private final static String CREATE_ALBUM_URL = "http://10.0.2.2:8080/weddingpics/uc/createAlbum?";
-	private final static String GET_ALBUM_URL = "http://10.0.2.2:8080/weddingpics/uc/getAlbum?";
+	private final static String CREATE_ALBUM_URL = HomeActivity.WP_SERVER_PATH + "uc/createAlbum?";
+	private final static String GET_ALBUM_URL = HomeActivity.WP_SERVER_PATH + "uc/getAlbum?";
 
 	public static AlbumService getInstance() {
 		return instance;

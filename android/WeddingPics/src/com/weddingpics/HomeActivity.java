@@ -25,6 +25,8 @@ public class HomeActivity extends Activity {
 	private ImageButton guestsButton;
 	private ImageButton bridebtn;
 	
+	public static String IMAGE_SERVER_PATH = "http://ec2-54-200-230-189.us-west-2.compute.amazonaws.com/images/";
+	public static String WP_SERVER_PATH = "http://ec2-54-200-230-189.us-west-2.compute.amazonaws.com:8080/weddingpics/";
 	private enum ScreenStateEnum
     {
         HOME_SCREEN, WEDDING_ID_SCREEN, BRIDE_SCREEN, LOGIN_SCREEN

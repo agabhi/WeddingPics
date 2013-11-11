@@ -6,6 +6,7 @@ import java.util.HashMap;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.weddingpics.HomeActivity;
 import com.weddingpics.model.HttpRequestObject;
 import com.weddingpics.util.HttpRequestCall;
 
@@ -15,7 +16,7 @@ public class LoginService {
 	
 	private static LoginService instance = new LoginService();
 	
-	private final static String LOGIN_URL = "http://10.0.2.2:8080/weddingpics/uc/getUser?";
+	private final static String LOGIN_URL =HomeActivity.WP_SERVER_PATH +"uc/getUser?";
 
 	public static LoginService getInstance() {
 		return instance;
