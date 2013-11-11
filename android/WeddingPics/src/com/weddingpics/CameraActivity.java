@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.weddingpics.model.HttpRequestObject;
+import com.weddingpics.model.ServerResponseObject;
 import com.weddingpics.service.SaveImageService;
 import com.weddingpics.util.ImageTypeEnum;
 
@@ -54,11 +56,13 @@ public class CameraActivity extends Activity {
 	            public void onClick(View v) {
 	            	if (albumId != null && photo != null) {
 	            		try {
-							HttpRequestObject reponse  = SaveImageService.getInstance().saveImage(photo, albumId, ImageTypeEnum.WEDDING.getValue(), imageDesc.getText().toString(), 1);
-							if (reponse.getResponse() != null && reponse.getResponse().contains("Y")) {
+							HttpRequestObject response  = SaveImageService.getInstance().saveImage(photo, albumId, ImageTypeEnum.WEDDING.getValue(), imageDesc.getText().toString(), 1);
+							Gson gson = new Gson();
+							ServerResponseObject serverResponseObject = gson.fromJson(response.getResponse(), ServerResponseObject.class);
+							if (serverResponseObject != null && serverResponseObject.getIsSuccess()) {
 								Toast.makeText(CameraActivity.this,"Photo save in album sucessfully.", Toast.LENGTH_LONG).show();
 							} else {
-								Toast.makeText(CameraActivity.this,"Some error occure while saving saving photo in album.", Toast.LENGTH_LONG).show();
+								Toast.makeText(CameraActivity.this,"Some error occure while saving saving photo in album :"+serverResponseObject.getErrorMessage(), Toast.LENGTH_LONG).show();
 							}
 						} catch (Exception e) {
 							Log.e("CameraActivity", "Error occured saving photo.", e);
@@ -81,11 +85,13 @@ public class CameraActivity extends Activity {
 	            public void onClick(View v) {
 	            	if (albumId != null && photo != null) {
 	            		try {
-							HttpRequestObject reponse  = SaveImageService.getInstance().saveImage(photo, albumId, ImageTypeEnum.COVER .getValue(), imageDesc.getText().toString(), 1);
-							if (reponse.getResponse() != null && reponse.getResponse().contains("Y")) {
+							HttpRequestObject response  = SaveImageService.getInstance().saveImage(photo, albumId, ImageTypeEnum.COVER .getValue(), imageDesc.getText().toString(), 1);
+							Gson gson = new Gson();
+							ServerResponseObject serverResponseObject = gson.fromJson(response.getResponse(), ServerResponseObject.class);
+							if (serverResponseObject != null && serverResponseObject.getIsSuccess()) {
 								Toast.makeText(CameraActivity.this,"Sucessfully save album cover.", Toast.LENGTH_LONG).show();
 							} else {
-								Toast.makeText(CameraActivity.this,"Some error occure while saving saving album cover.", Toast.LENGTH_LONG).show();
+								Toast.makeText(CameraActivity.this,"Some error occure while saving saving album cover : "+serverResponseObject.getErrorMessage(), Toast.LENGTH_LONG).show();
 							}
 						} catch (Exception e) {
 							Log.e("CameraActivity", "Error occured saving cover photo.", e);

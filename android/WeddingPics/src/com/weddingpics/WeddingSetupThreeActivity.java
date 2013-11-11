@@ -1,18 +1,15 @@
 package com.weddingpics;
 
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.weddingpics.model.HttpRequestObject;
-import com.weddingpics.service.AlbumService;
 
 public class WeddingSetupThreeActivity extends Activity {
 
@@ -24,37 +21,30 @@ public class WeddingSetupThreeActivity extends Activity {
 		
 		TextView weddingIdText    =(TextView)findViewById(R.id.weddingId);
 		Intent intentData = getIntent();
-		String email = (String) intentData.getSerializableExtra("email");
-		Boolean isNewUser = (Boolean) intentData.getSerializableExtra("isNewUser");
-		String fullName = (String) intentData.getSerializableExtra("fullName");
-		String password = (String) intentData.getSerializableExtra("password");
-		String firstUser = (String) intentData.getSerializableExtra("firstUser");
-		Integer firstUserType = (Integer) intentData.getSerializableExtra("firstUserType");
-		String secondUser = (String) intentData.getSerializableExtra("secondUser");
-		Integer secondUserType = (Integer) intentData.getSerializableExtra("secondUserType");
-		String weddingId = (String) intentData.getSerializableExtra("weddingId");
-		String weddingdate = (String) intentData.getSerializableExtra("weddingdate");
+		final String weddingId = (String) intentData.getSerializableExtra("weddingId");
+		if (!weddingId.isEmpty()) {
+			 weddingIdText.setText(weddingId);
+			Toast.makeText(WeddingSetupThreeActivity.this,"Album cerate sucessfully! Weeding ID : "+weddingId, Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(WeddingSetupThreeActivity.this,"Some data missing for album creations." , Toast.LENGTH_LONG).show();
+		} 
 		
-		try {
-			if (!email.isEmpty() && !password.isEmpty() && !firstUser.isEmpty()
-					&& !secondUser.isEmpty() && !weddingId.isEmpty() && !weddingdate.isEmpty()
-					&& isNewUser != null && firstUserType != null && secondUserType != null	) {
-				HttpRequestObject reponse  = AlbumService.getInstance().createAlbum(email,fullName,password,firstUser,secondUser,weddingId,weddingdate,firstUserType,secondUserType,isNewUser);
-				JSONObject jsonObject = new JSONObject(reponse.getResponse());
-				if (jsonObject != null && jsonObject.getString("weddingId") != null) {
-						weddingIdText.setText(" "+jsonObject.getString("weddingId"));
-						Toast.makeText(WeddingSetupThreeActivity.this,"Album cerate sucessfully! Weeding ID : "+jsonObject.getString("weddingId") , Toast.LENGTH_LONG).show();
+		RelativeLayout goToAlbmBtn = (RelativeLayout) findViewById(R.id.goToAlbmBtn);
+		// if button is clicked,than we open albums
+		goToAlbmBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//go back
+				if (!weddingId.isEmpty()) {
+					 Intent intent = new Intent(WeddingSetupThreeActivity.this, AlbumActivity.class);
+					 intent.putExtra("weddingId",weddingId);
+					 startActivity(intent);
 				} else {
-						Toast.makeText(WeddingSetupThreeActivity.this,"Album cerate some problem try again later! : "+reponse.getResponse(), Toast.LENGTH_LONG).show();	
+					 Toast.makeText(WeddingSetupThreeActivity.this,"WeddingId not blank." , Toast.LENGTH_LONG).show();
 				}
-				
-			} else {
-				Toast.makeText(WeddingSetupThreeActivity.this,"Some data missing for album creations." , Toast.LENGTH_LONG).show();
-			} 
-		} catch (Exception e) {
-			Log.e("WeddingSetupThreeActivity", "Error occured Album creation.", e);
-			Toast.makeText(WeddingSetupThreeActivity.this,e.getMessage(), Toast.LENGTH_LONG).show();
-		}
+			}
+		});
+		
 		
 	}
 

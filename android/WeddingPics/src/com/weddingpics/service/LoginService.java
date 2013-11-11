@@ -22,7 +22,7 @@ public class LoginService {
 	}
 	
 	
-	public String loginUser(String userName,String password) throws Exception {
+	public HttpRequestObject loginUser(String userName,String password) throws Exception {
 	
 		class UserLogin extends AsyncTask<String, Void, HttpRequestObject> {
 			
@@ -60,7 +60,7 @@ public class LoginService {
 			throw new Exception("Error occured while login user.");
 		}
 		if (response.isSuccess()) {
-			return response.getResponse();
+			return response;
 		} else {
 			throw new Exception(response.getMessage());
 		}

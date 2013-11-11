@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.weddingpics.model.Album;
 import com.weddingpics.model.HttpRequestObject;
 import com.weddingpics.model.Picture;
+import com.weddingpics.model.ServerResponseObject;
 import com.weddingpics.service.AlbumService;
 import com.weddingpics.service.LoadImageService;
 import com.weddingpics.util.AlbumPictureListAdapter;
@@ -46,10 +47,11 @@ public class AlbumActivity extends Activity {
 		final String weddingId = (String) intentData.getSerializableExtra("weddingId");
 		try {
 			HttpRequestObject response = AlbumService.getInstance().getAlbum(weddingId);
-			if (response != null && response.getResponse().contains("weddingId")) {
-				Gson gson = new Gson();
-				album = gson.fromJson(response.getResponse(), Album.class);
-				if (album != null) {
+			Gson gson = new Gson();
+			ServerResponseObject serverResponseObject = gson.fromJson(response.getResponse(), ServerResponseObject.class);
+			if (serverResponseObject.getIsSuccess()) {
+				if (serverResponseObject.getAlbum() != null) {
+					album = serverResponseObject.getAlbum();
 					if (album.getWeddingId() != null && !album.getWeddingId().isEmpty()) {
 						wedding_id.setText(album.getWeddingId());
 					}
@@ -57,8 +59,8 @@ public class AlbumActivity extends Activity {
 						SimpleDateFormat  dateFormat = new SimpleDateFormat(" MMM dd, yyy");
 						wedding_date.setText(dateFormat.format(album.getWeddingdate()));
 					}
-					if (album.getPictures() != null && album.getPictures().size() > 0) {
-						final List<Picture> pictures  = album.getPictures();
+					if (serverResponseObject.getPictures() != null && serverResponseObject.getPictures().size() > 0) {
+						final List<Picture> pictures  = serverResponseObject.getPictures();
 						final ListView lv1 = (ListView) findViewById(R.id.albumListView);
 					    lv1.setAdapter(new AlbumPictureListAdapter(this, pictures));	
 					}
@@ -79,7 +81,7 @@ public class AlbumActivity extends Activity {
 					}
 				}
 			} else {
-				Toast.makeText(AlbumActivity.this," Some problem occure getting album data." , Toast.LENGTH_LONG).show();	
+				Toast.makeText(AlbumActivity.this," Some problem occure getting album data :"+serverResponseObject.getErrorMessage() , Toast.LENGTH_LONG).show();	
 			}
 		} catch (Exception e) {
 			Log.e("AlbumActivity", "Error occured getting album.", e);

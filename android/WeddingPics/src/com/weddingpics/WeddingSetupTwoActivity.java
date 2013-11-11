@@ -9,15 +9,20 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.weddingpics.model.HttpRequestObject;
+import com.weddingpics.model.ServerResponseObject;
+import com.weddingpics.service.AlbumService;
 import com.weddingpics.util.UserTypeEnum;
 
 public class WeddingSetupTwoActivity extends Activity {
@@ -52,19 +57,29 @@ public class WeddingSetupTwoActivity extends Activity {
 				TextView fianceNameInput    =(TextView)findViewById(R.id.fianceNameInput);
 				TextView weddingDateInput  =(TextView)findViewById(R.id.weddingDateInput);
 				TextView weddingIdInput  =(TextView)findViewById(R.id.weddingIdInput);
-				if (!firstNameInput.getText().toString().isEmpty() && !fianceNameInput.getText().toString().isEmpty() && !weddingDateInput.getText().toString().isEmpty() && !weddingIdInput.getText().toString().isEmpty()) {
-					Intent intent = new Intent(context, WeddingSetupThreeActivity.class);
-					intent.putExtra("email", email);
-					intent.putExtra("isNewUser",isNewUser);
-					intent.putExtra("fullName", fullName);
-					intent.putExtra("password", password);
-					intent.putExtra("firstUser", firstNameInput.getText().toString());
-					intent.putExtra("firstUserType",UserTypeEnum.GROOM.getValue());
-					intent.putExtra("secondUser",fianceNameInput.getText().toString());
-					intent.putExtra("secondUserType",UserTypeEnum.BRIDE.getValue());
-					intent.putExtra("weddingId", weddingIdInput.getText().toString());
-					intent.putExtra("weddingdate", weddingDateInput.getText().toString().replaceAll("Wedding Date: ", ""));
-					startActivity(intent);
+				String firstUser = firstNameInput.getText().toString();
+				String secondUser = fianceNameInput.getText().toString();
+				String weddingId = weddingIdInput.getText().toString();
+				String weddingdate = weddingDateInput.getText().toString().replaceAll("Wedding Date: ", "");
+				if (!firstUser.isEmpty() && !secondUser.isEmpty() && !weddingdate.isEmpty() && !weddingId.isEmpty()) {
+					HttpRequestObject reponse;
+					try {
+						reponse = AlbumService.getInstance().createAlbum(email,fullName,password,firstUser,secondUser,weddingId,weddingdate,UserTypeEnum.GROOM.getValue(),UserTypeEnum.BRIDE.getValue(),isNewUser);
+						Gson gson = new Gson();
+						ServerResponseObject serverResponseObject = gson.fromJson(reponse.getResponse(), ServerResponseObject.class);
+						if (serverResponseObject != null && serverResponseObject.getIsSuccess()) {
+							if (serverResponseObject.getAlbum() != null) {
+								Intent intent = new Intent(context, WeddingSetupThreeActivity.class);
+								intent.putExtra("weddingId",serverResponseObject.getAlbum().getWeddingId());
+								startActivity(intent);
+							}
+						} else {
+							Toast.makeText(WeddingSetupTwoActivity.this,"Album cerate some problem Try again! : "+serverResponseObject.getErrorMessage(), Toast.LENGTH_LONG).show();	
+						}
+					} catch (Exception e) {
+						Log.e("WeddingSetupTwoActivity", "Error occured Album creation.", e);
+						Toast.makeText(WeddingSetupTwoActivity.this,e.getMessage(), Toast.LENGTH_LONG).show();
+					}
 				} else if (firstNameInput.getText().toString().isEmpty()) {
 					Toast.makeText(WeddingSetupTwoActivity.this,"Please entre first name field. " , Toast.LENGTH_LONG).show();
 				}  else if (fianceNameInput.getText().toString().isEmpty()) {
