@@ -235,6 +235,7 @@ public class UserController {
 	            byte[] imageByteArray = decodeImage(imageDataString);
 	             
 	           String imgatePath = "";
+	           String albumPath =  "images/albums/"+album.getAlbumId();;
 	            if (imageType.equals(ImageTypeEnum.WEDDING.getValue())) {
 	            	  SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmmss");
 	            	  imgatePath = "images/albums/"+album.getAlbumId()+"/"+dateFormat.format(new Date())+".jpg";
@@ -243,23 +244,31 @@ public class UserController {
 	            }
 	           
 	            ServletContext context = RequestContextUtils.getWebApplicationContext(request).getServletContext();
-	            String fullPath = context.getRealPath(imgatePath);
-	            System.out.println(fullPath);
+	            String imageFullPath = context.getRealPath(imgatePath);
+	            String albumFullPath = context.getRealPath(albumPath);
 	            // Write a image byte array into file system
+	            File file = new File(albumFullPath);
+	            if (!file.exists()) {
+	            	file.mkdir();
+	            }
 	        	InputStream in = new ByteArrayInputStream(imageByteArray);
 				BufferedImage bImageFromConvert = ImageIO.read(in);
-				ImageIO.write(bImageFromConvert, "jpg", new File(fullPath));
+				ImageIO.write(bImageFromConvert, "jpg", new File(imageFullPath));
 	            
 				if (album != null && user != null) {
-					com.weddingpics.rest.entity.Picture picture = new com.weddingpics.rest.entity.Picture();
-					picture.setUrl("http://10.0.2.2:8080/weddingpics/"+imgatePath);
-					picture.setPictureDate(new Date());
-					picture.setPictureTitle(imageDesc);
-					picture.setImageType(imageType);
-					picture.setAlbum(album);
-					picture.setUser(user);
-					pictureService.addPicture(picture);
-					
+					if (!imageType.equals(ImageTypeEnum.COVER.getValue())) {
+						com.weddingpics.rest.entity.Picture picture = new com.weddingpics.rest.entity.Picture();
+						picture.setUrl("http://10.0.2.2:8080/weddingpics/"+imgatePath);
+						picture.setPictureDate(new Date());
+						picture.setPictureTitle(imageDesc);
+						picture.setImageType(imageType);
+						picture.setAlbum(album);
+						picture.setUser(user);
+						pictureService.addPicture(picture);
+					} else {
+						album.setCoverImage("http://10.0.2.2:8080/weddingpics/"+imgatePath);
+						albumService.UpdateAlbum(album);
+					}
 					response = gson.toJson("Y");
 				} else if (album == null) {
 					response = "Album not exist in our databse";
