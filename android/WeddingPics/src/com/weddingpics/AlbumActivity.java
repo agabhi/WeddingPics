@@ -3,7 +3,6 @@ package com.weddingpics;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,18 +25,20 @@ import com.weddingpics.model.ServerResponseObject;
 import com.weddingpics.service.AlbumService;
 import com.weddingpics.service.LoadImageService;
 import com.weddingpics.util.AlbumPictureListAdapter;
+import com.weddingpics.util.SessionManager;
 
-public class AlbumActivity extends Activity {
+public class AlbumActivity extends MyActivity {
 	
 	final Context context = this;
 	Album album = null;
+	SessionManager session;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_album);
-		
+		session = new SessionManager(getApplicationContext());
 		final TextView wedding_id    =(TextView)findViewById(R.id.wedding_id);
 		final TextView wedding_date    =(TextView)findViewById(R.id.wedding_date);
 		final TextView album_desc    =(TextView)findViewById(R.id.album_desc);
@@ -46,7 +47,7 @@ public class AlbumActivity extends Activity {
 		Intent intentData = getIntent();
 		final String weddingId = (String) intentData.getSerializableExtra("weddingId");
 		try {
-			HttpRequestObject response = AlbumService.getInstance().getAlbum(weddingId);
+			HttpRequestObject response = AlbumService.getInstance().getAlbum(weddingId,session.getUserToken());
 			Gson gson = new Gson();
 			ServerResponseObject serverResponseObject = gson.fromJson(response.getResponse(), ServerResponseObject.class);
 			if (serverResponseObject.getIsSuccess()) {

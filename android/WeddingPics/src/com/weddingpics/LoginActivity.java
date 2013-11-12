@@ -1,6 +1,6 @@
 package com.weddingpics;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,15 +14,18 @@ import com.google.gson.Gson;
 import com.weddingpics.model.HttpRequestObject;
 import com.weddingpics.model.ServerResponseObject;
 import com.weddingpics.service.LoginService;
+import com.weddingpics.util.SessionManager;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends MyActivity {
+	
+	SessionManager session;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_login);
-		
+		session = new SessionManager(getApplicationContext()); 
 		Button submitButton = (Button) findViewById(R.id.loginSubmitButton);
 		// if button is clicked, close the custom dialog
 		submitButton.setOnClickListener(new OnClickListener() {
@@ -37,7 +40,20 @@ public class LoginActivity extends Activity {
 						Gson gson = new Gson();
 						ServerResponseObject serverResponseObject = gson.fromJson(response.getResponse(), ServerResponseObject.class);
 						if (serverResponseObject.getIsSuccess()) {
-							Toast.makeText(LoginActivity.this,"user token number "+serverResponseObject.getUser().getToken(), Toast.LENGTH_LONG).show();	
+							Toast.makeText(LoginActivity.this,"Login sucessful", Toast.LENGTH_LONG).show();
+							String activity = session.getUserActivity();
+							String weddingId = session.getWeddingId();
+							session.createLoginSession(serverResponseObject.getUser().getToken(), serverResponseObject.getUser().getEmailId());
+							if (activity.equalsIgnoreCase("HomeActivity")) {
+								Intent intent = new Intent(LoginActivity.this, MyWeddingsActivity.class);
+								startActivity(intent);
+								finish();
+							} else if (activity.equalsIgnoreCase("GuestsActivity")) {
+								 Intent intent = new Intent(LoginActivity.this, AlbumActivity.class);
+								 intent.putExtra("weddingId",weddingId);
+								 startActivity(intent);
+								 finish();
+							}
 						} else {
 							Toast.makeText(LoginActivity.this,"Some Error occure while user login :  "+serverResponseObject.getErrorMessage(), Toast.LENGTH_LONG).show();
 						}
@@ -51,6 +67,17 @@ public class LoginActivity extends Activity {
 					Log.e("HomeActivity", "Error occured login user.", e);
 					Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
 				}
+			}
+		});
+		
+		Button signUpLinkButton = (Button) findViewById(R.id.signUpLinkButton);
+		// if button is clicked, close the custom dialog
+		signUpLinkButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//go back
+				 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+				 startActivity(intent);
 			}
 		});
 	}

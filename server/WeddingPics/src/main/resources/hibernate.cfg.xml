@@ -8,6 +8,7 @@
      <mapping class="com.weddingpics.rest.entity.User" /> 
      <mapping class="com.weddingpics.rest.entity.Album" /> 
      <mapping class="com.weddingpics.rest.entity.Picture" /> 
+      <mapping class="com.weddingpics.rest.entity.UserAlbum" /> 
    </session-factory>
  </hibernate-configuration>
 

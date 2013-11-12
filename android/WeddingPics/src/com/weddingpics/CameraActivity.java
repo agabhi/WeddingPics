@@ -1,6 +1,5 @@
 package com.weddingpics;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -17,21 +16,23 @@ import com.weddingpics.model.HttpRequestObject;
 import com.weddingpics.model.ServerResponseObject;
 import com.weddingpics.service.SaveImageService;
 import com.weddingpics.util.ImageTypeEnum;
+import com.weddingpics.util.SessionManager;
 
-public class CameraActivity extends Activity {
+public class CameraActivity extends MyActivity {
 	
 	  private final static String DEBUG_TAG = "CameraActivity";
 	  private static final int CAMERA_REQUEST = 1888; 
 	  private ImageView imageView;
 	  private EditText imageDesc;  
 	  private Bitmap photo = null;
+	  SessionManager session;
 
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 	        setContentView(R.layout.activity_camera);
-	        
+	    	session = new SessionManager(getApplicationContext());
 	        Intent intentData = getIntent();
 			final Long albumId = (Long) intentData.getSerializableExtra("albumId");
 	        this.imageView = (ImageView)this.findViewById(R.id.imageView1);
@@ -56,7 +57,7 @@ public class CameraActivity extends Activity {
 	            public void onClick(View v) {
 	            	if (albumId != null && photo != null) {
 	            		try {
-							HttpRequestObject response  = SaveImageService.getInstance().saveImage(photo, albumId, ImageTypeEnum.WEDDING.getValue(), imageDesc.getText().toString(), 1);
+							HttpRequestObject response  = SaveImageService.getInstance().saveImage(photo, albumId, ImageTypeEnum.WEDDING.getValue(), imageDesc.getText().toString(), session.getUserToken());
 							Gson gson = new Gson();
 							ServerResponseObject serverResponseObject = gson.fromJson(response.getResponse(), ServerResponseObject.class);
 							if (serverResponseObject != null && serverResponseObject.getIsSuccess()) {
@@ -85,7 +86,7 @@ public class CameraActivity extends Activity {
 	            public void onClick(View v) {
 	            	if (albumId != null && photo != null) {
 	            		try {
-							HttpRequestObject response  = SaveImageService.getInstance().saveImage(photo, albumId, ImageTypeEnum.COVER .getValue(), imageDesc.getText().toString(), 1);
+							HttpRequestObject response  = SaveImageService.getInstance().saveImage(photo, albumId, ImageTypeEnum.COVER .getValue(), imageDesc.getText().toString(), session.getUserToken());
 							Gson gson = new Gson();
 							ServerResponseObject serverResponseObject = gson.fromJson(response.getResponse(), ServerResponseObject.class);
 							if (serverResponseObject != null && serverResponseObject.getIsSuccess()) {

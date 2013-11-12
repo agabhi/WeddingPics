@@ -30,6 +30,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.google.gson.Gson;
 import com.weddingpics.rest.entity.Album;
 import com.weddingpics.rest.entity.User;
+import com.weddingpics.rest.entity.UserAlbum;
 import com.weddingpics.rest.model.ClientResponseObject;
 import com.weddingpics.rest.model.Picture;
 import com.weddingpics.rest.service.AlbumService;
@@ -93,11 +94,11 @@ public class UserController {
 							if (u == null) {
 								isValidUser = true;
 							} else {
-								response.setErrorMessage("Email id already in database try another email id");
+								response.setErrorMessage("EMAIL ALREADY EXIST TRY ANOTHER ID!");
 								response.setIsSuccess(false);
 							}
 					  }  else if (StringUtils.isBlank(userName)) {
-						  response.setErrorMessage("User name not blank");
+						  response.setErrorMessage("USER NAME NOT BLANK!");
 						  response.setIsSuccess(false);
 						} 
 				}  else {
@@ -105,18 +106,18 @@ public class UserController {
 					if (user != null) {
 						isValidUser = true;
 					} else {
-						response.setErrorMessage("User not an existing user");
+						response.setErrorMessage("USER NOT AN EXISTING USER!");
 						response.setIsSuccess(false);
 					}
 				}
 			} else {
-				response.setErrorMessage("User email id not right");
+				response.setErrorMessage("USER EMAIL ID NOT CORRECT!");
 				response.setIsSuccess(false);
 			}
 		} else if (StringUtils.isBlank(userEmail)) {
-			response.setErrorMessage("User email not blank");
+			response.setErrorMessage("USER EMAIL NOT BLANK!");
 		} else if (StringUtils.isBlank(password)) {
-			response.setErrorMessage("Password not blank");
+			response.setErrorMessage("USER PASSWORD NOT BLANK!");
 			response.setIsSuccess(false);
 		}
 		
@@ -149,7 +150,7 @@ public class UserController {
 				response.setAlbum(EntityToVOConverter.convertToVO(album)); //Set Album information in response object.  
 				response.setIsSuccess(true);
 			} else {
-				response.setErrorMessage("Wedding Id already taken please change your wedding id.");
+				response.setErrorMessage("WEDDING ALREADY TAKEN BY ANOTHER PLEASE CHANGE YOUR WEDDING ID AS UNIQUE!");
 				response.setIsSuccess(false);
 			}
 		}
@@ -184,19 +185,19 @@ public class UserController {
 					response.setUser(userModle);
 					response.setIsSuccess(true);
 				} else {
-					response.setErrorMessage("User not exist in our databse");
+					response.setErrorMessage("USER NOT EXIST IN OUR SYSTEM!");
 					response.setIsSuccess(false);
 				}
 			} else {
-				response.setErrorMessage("User email id not right");
+				response.setErrorMessage("USER EMAIL ID NOT CORRECT!");
 				response.setIsSuccess(false);
 			}
 			
 		} else if (StringUtils.isBlank(userEmail)) {
-			response.setErrorMessage("User email not blank");
+			response.setErrorMessage("USER EMAIL ID NOT BLANK!");
 			response.setIsSuccess(false);
 		} else if (StringUtils.isBlank(password)) {
-			response.setErrorMessage("Password not blank");
+			response.setErrorMessage("USER PASSWORD NOT BLANK!");
 			response.setIsSuccess(false);
 		}
 		return gson.toJson(response);
@@ -217,12 +218,26 @@ public class UserController {
 		Gson gson = new Gson();
 		
 		String weddingId = StringUtils.isNotBlank(request.getParameter("weddingId"))?request.getParameter("weddingId"):null;
-		if (StringUtils.isNotBlank(weddingId)) {
+		String token = StringUtils.isNotBlank(request.getParameter("token"))?request.getParameter("token"):null;
+		
+		if (StringUtils.isNotBlank(weddingId)&& StringUtils.isNotBlank(token)) {
 				Album album = albumService.findAlbumByWeddingId(weddingId);
-				if (album != null) {
+				User memberUser = userService.findUserByToken(token);
+				if (album != null && memberUser != null) {
+					UserAlbum userAlbum = userService.getUserAlbum(memberUser.getUserId(), album.getAlbumId());
+					if (userAlbum == null) {
+						userAlbum = new UserAlbum();
+						userAlbum.setAlbum(album);
+						userAlbum.setUser(memberUser);
+						userAlbum.setModifyDttm(new Date());
+						userService.addUserAlbum(userAlbum);
+					} else {
+						userAlbum.setModifyDttm(new Date());
+						userService.UpdateUserAlbum(userAlbum);
+					}
 					com.weddingpics.rest.model.Album albumModel =  EntityToVOConverter.convertToVO(album);
 					if (StringUtils.isNotBlank(album.getCoverImage())) {
-						album.setCoverImage(IMAGE_URL_PREFIX+album.getAlbumId()+"/"+album.getCoverImage());
+						albumModel.setCoverImage(IMAGE_URL_PREFIX+album.getAlbumId()+"/"+album.getCoverImage());
 					}
 					response.setAlbum(albumModel);
 					if (CollectionUtils.isNotEmpty(album.getPictures())) {
@@ -238,12 +253,15 @@ public class UserController {
 						}
 					}
 					response.setIsSuccess(true);
-				} else {
-					response.setErrorMessage("Album not exist in our databse");
+				} else if (album == null) {
+					response.setErrorMessage("ALBUM NOT EXIST IN OUR SYSTEM!");
+					response.setIsSuccess(false);
+				}  else if (memberUser == null) {
+					response.setErrorMessage("USER NOT EXIST IN OUR SYSTEM");
 					response.setIsSuccess(false);
 				}
 		} else if (StringUtils.isBlank(weddingId)) {
-			response.setErrorMessage("WeddingId not blank");
+			response.setErrorMessage("ALBUM WEDDING ID NOT BALNK!");
 			response.setIsSuccess(false);
 		} 
 		return gson.toJson(response);
@@ -267,14 +285,14 @@ public class UserController {
 		String imageDataString = StringUtils.isNotBlank(request.getParameter("image"))?request.getParameter("image"):null;
 		Long albumId = StringUtils.isNotBlank(request.getParameter("albumId"))?Long.parseLong(request.getParameter("albumId")):null;
 		Integer imageType = StringUtils.isNotBlank(request.getParameter("imageType"))?Integer.parseInt(request.getParameter("imageType")):null;
-		Long userId = StringUtils.isNotBlank(request.getParameter("userId"))?Long.parseLong(request.getParameter("userId")):null;
+		String token = StringUtils.isNotBlank(request.getParameter("token"))?request.getParameter("token"):null;
 		String imageDesc = StringUtils.isNotBlank(request.getParameter("imageDesc"))?request.getParameter("imageDesc"):null;
 		
 		
-		if (StringUtils.isNotBlank(imageDataString) && albumId != null && imageType != null && userId != null ) {
+		if (StringUtils.isNotBlank(imageDataString) && albumId != null && imageType != null && StringUtils.isNotBlank(token)) {
 			
 				Album album = albumService.findAlbumById(albumId);
-				User user = userService.findUserById(userId);
+				User user = userService.findUserByToken(token);
 				// Converting a Base64 String into Image byte array
 	            byte[] imageByteArray = decodeImage(imageDataString);
 	             
@@ -314,25 +332,25 @@ public class UserController {
 					}
 					response.setIsSuccess(true);
 				} else if (album == null) {
-					response.setErrorMessage("Album not exist in our databse");
+					response.setErrorMessage("ALBUM NOT EXIST IN OUR SYSTEM!");
 					response.setIsSuccess(false);
 				} else if (user == null) {
-					response.setErrorMessage("Album not exist in our databse");
+					response.setErrorMessage("USER NOT EXIST IN OUR SYSTEM!");
 					response.setIsSuccess(false);
 				}
 			
 			
 		} else if (StringUtils.isBlank(imageDataString)) {
-			response.setErrorMessage("image data not blank");
+			response.setErrorMessage("IMAGE DATA NOT BLANK!");
 			response.setIsSuccess(false);
 		} else if (albumId == null) {
-			response.setErrorMessage("albumId not blank");
+			response.setErrorMessage("ALBUM ID NOT BLANK!");
 			response.setIsSuccess(false);
 		} else if (imageType == null) {
-			response.setErrorMessage("imageType not blank");
+			response.setErrorMessage("IMAGE TYPE NOT BLANK!");
 			response.setIsSuccess(false);
-		} else if (userId == null) {
-			response.setErrorMessage("userId not blank");
+		} else if (StringUtils.isBlank(token)) {
+			response.setErrorMessage("USER ID NOT BLANK!");
 			response.setIsSuccess(false);
 		} 
 		
@@ -350,6 +368,100 @@ public class UserController {
         return Base64.decodeBase64(imageDataString.getBytes());
     }
  
+    /**
+	 * THIS METHOD FOR REGISTER USER.   
+	 * @param model
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	@RequestMapping(value="/uc/registerUser", method = RequestMethod.POST ,produces = "application/json")
+	 public @ResponseBody String registerUser(Model model, HttpServletRequest request) throws Exception {
+		
+		ClientResponseObject response = new ClientResponseObject(); 
+		Gson gson = new Gson();
+		
+		String userEmail = StringUtils.isNotBlank(request.getParameter("userEmail"))?request.getParameter("userEmail"):null;
+		String password = StringUtils.isNotBlank(request.getParameter("password"))?request.getParameter("password"):null;
+		String userName = StringUtils.isNotBlank(request.getParameter("userName"))?request.getParameter("userName"):null;
+		
+		
+		if (StringUtils.isNotBlank(userEmail)&& StringUtils.isNotBlank(password)&& StringUtils.isNotBlank(userName)) {
+			Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			if (emailValidator.validate(userEmail)) {
+				User user = userService.findUserByEmailId(userEmail);
+				if (user == null) {
+					user = new User();
+					user.setEmailId(userEmail);
+					user.setFullName(userName);
+					user.setModifyDttm(new Date());
+					user.setPassword(encoder.encodePassword(password,null));
+					user.setToken(UUID.randomUUID().toString());
+					userService.addUser(user);
+					response.setUser(EntityToVOConverter.convertToVO(user));
+					response.setIsSuccess(true);
+				} else {
+					response.setErrorMessage("USER EMAIL ID ALREADY EXIST IN DATABASE TRY ANOTHER EMAIL ADDRESS OR CLICK ON FORGOT PASSWORD LINK. ");
+					response.setIsSuccess(false);
+				}
+			} else {
+				response.setErrorMessage("USER EMAIL ID NOT VALID TRY ANOTHER.");
+				response.setIsSuccess(false);
+			}
+			
+		} else if (StringUtils.isBlank(userEmail)) {
+			response.setErrorMessage("USER EMAIL ADDRESS NOT BLANK");
+			response.setIsSuccess(false);
+		} else if (StringUtils.isBlank(password)) {
+			response.setErrorMessage("USER PASSWORD NOT BLANK");
+			response.setIsSuccess(false);
+		}  else if (StringUtils.isBlank(userName)) {
+			response.setErrorMessage("USER FULL NAME NOT BLANK");
+			response.setIsSuccess(false);
+		}
+		return gson.toJson(response);
+	}
+	
+	/**
+	 * This method get all albums info for user 
+	 * @param model
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	@RequestMapping(value="/uc/getUserAlbums", method = RequestMethod.POST ,produces = "application/json")
+	 public @ResponseBody String getUserAlbums(Model model, HttpServletRequest request) throws Exception {
+		
+		ClientResponseObject response = new ClientResponseObject(); 
+		Gson gson = new Gson();
+		
+		String token = StringUtils.isNotBlank(request.getParameter("token"))?request.getParameter("token"):null;
+		
+		if (StringUtils.isNotBlank(token)) {
+			com.weddingpics.rest.model.User userModel = new com.weddingpics.rest.model.User();
+			response.setUser(userModel);
+			List<Album> albums = userService.getUserAlbums(token);
+			response.setIsSuccess(true);
+		    if (CollectionUtils.isNotEmpty(albums)) {
+		    		List<com.weddingpics.rest.model.Album> albumsList = new ArrayList<com.weddingpics.rest.model.Album>();
+		    		userModel.setAlbums(albumsList);
+		    		for (Album album : albums ) {
+		    			albumsList.add(EntityToVOConverter.convertToVO(album));
+		    		}
+		    	
+		    } else {
+		    	response.setErrorMessage("USER NOT FOUND FOR THAT TOKEN!");
+				response.setIsSuccess(false);
+		    }
+			
+		} else if (StringUtils.isBlank(token)) {
+			response.setErrorMessage("USER TOKEN NOT BLANK!");
+			response.setIsSuccess(false);
+		}
+		return gson.toJson(response);
+	}
 	
 }
 

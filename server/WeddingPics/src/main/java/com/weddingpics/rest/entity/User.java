@@ -1,12 +1,15 @@
 package com.weddingpics.rest.entity;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -30,6 +33,9 @@ public class User implements Serializable{
 	private String token;
 	@Column(name = "modifyDttm")
 	private Date modifyDttm;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "album", targetEntity = UserAlbum.class)
+	private List<Album> albums;
 	
 	
 	public Long getUserId() {
@@ -68,6 +74,13 @@ public class User implements Serializable{
 	public void setModifyDttm(Date modifyDttm) {
 		this.modifyDttm = modifyDttm;
 	}
+	public List<Album> getAlbums() {
+		return albums;
+	}
+	public void setAlbums(List<Album> albums) {
+		this.albums = albums;
+	}
+	
 	
 	
 

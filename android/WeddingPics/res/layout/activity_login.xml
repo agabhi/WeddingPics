@@ -58,4 +58,34 @@
         android:textSize="12dp" />
 
 	</RelativeLayout>
+	
+    	
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/lightgray"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp">
+		
+        <TextView android:layout_width="wrap_content" 
+            android:id="@+id/texter"
+            android:textColor="@color/black_overlay"
+          android:layout_height="wrap_content" 
+          android:textSize="8sp"
+          android:layout_marginRight="10dp"
+          android:layout_marginTop="4dp"
+          android:text="NOT HAVE AN ACCOUNT ?"/>
+        
+        <Button
+            android:id="@+id/signUpLinkButton"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_toRightOf="@id/texter"
+            android:background="@drawable/blue_box_no_border"
+            android:padding="-10dp"
+            android:text="SIGN UP"
+            android:textSize="8dp" />
+        
+	</RelativeLayout>
 </RelativeLayout>
