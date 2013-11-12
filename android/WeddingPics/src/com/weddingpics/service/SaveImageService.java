@@ -39,7 +39,7 @@ private static SaveImageService instance = new SaveImageService();
 	 * @return
 	 * @throws Exception
 	 */
-	public HttpRequestObject saveImage(Bitmap photo, Long albumId,Integer imageType, String imageDesc,Integer userId) throws Exception {
+	public HttpRequestObject saveImage(Bitmap photo, Long albumId,Integer imageType, String imageDesc,String token) throws Exception {
 	
 		class SaveImage extends AsyncTask<String, Void, HttpRequestObject> {
 			
@@ -51,7 +51,7 @@ private static SaveImageService instance = new SaveImageService();
 				String albumId = params[2];
 				String imageType = params[3];
 				String imageDesc = params[4];
-				String userId = params[5];
+				String token = params[5];
 				
 				HttpRequestObject requestObject = new HttpRequestObject();
 				requestObject.setUrl(url);
@@ -60,7 +60,7 @@ private static SaveImageService instance = new SaveImageService();
 				postParameters.put("albumId", albumId);
 				postParameters.put("imageType", imageType);
 				postParameters.put("imageDesc", imageDesc);
-				postParameters.put("userId", userId);
+				postParameters.put("token", token);
 				
 				requestObject.setPostParameters(postParameters);
 				
@@ -83,7 +83,7 @@ private static SaveImageService instance = new SaveImageService();
 			 photo.compress(Bitmap.CompressFormat.JPEG, 90, stream); //compress to which format you want.
 		     byte [] byte_arr = stream.toByteArray();
 		     String image_str = Base64.encodeToString(byte_arr, Base64.DEFAULT );
-			response = new SaveImage().execute(SAVE_IMAGE_URL,image_str,albumId.toString(),imageType.toString(), imageDesc.toString(), userId.toString()).get();
+			response = new SaveImage().execute(SAVE_IMAGE_URL,image_str,albumId.toString(),imageType.toString(), imageDesc.toString(), token).get();
 		} catch (Exception e) {
 			Log.e("SaveImageService", "Error occured while saving images.", e);
 			throw new Exception("Error occured while saving images.");

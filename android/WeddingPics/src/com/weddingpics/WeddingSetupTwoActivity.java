@@ -3,7 +3,6 @@ package com.weddingpics;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -25,7 +24,7 @@ import com.weddingpics.model.ServerResponseObject;
 import com.weddingpics.service.AlbumService;
 import com.weddingpics.util.UserTypeEnum;
 
-public class WeddingSetupTwoActivity extends Activity {
+public class WeddingSetupTwoActivity extends MyActivity {
 	
 	final Context context = this;
 	private EditText weddingDateText;

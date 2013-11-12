@@ -104,7 +104,7 @@ private static AlbumService instance = new AlbumService();
 	 * @return
 	 * @throws Exception
 	 */
-	public HttpRequestObject getAlbum(String weddingId) throws Exception {
+	public HttpRequestObject getAlbum(String weddingId, String token) throws Exception {
 		
 		class GetAlbum extends AsyncTask<String, Void, HttpRequestObject> {
 			
@@ -113,12 +113,14 @@ private static AlbumService instance = new AlbumService();
 				
 				String url = params[0];
 				String weddingId = params[1];
+				String token = params[2];
 				
 				
 				HttpRequestObject requestObject = new HttpRequestObject();
 				requestObject.setUrl(url);
 				HashMap<String, String> postParameters = new HashMap<String, String>();
 				postParameters.put("weddingId", weddingId);
+				postParameters.put("token", token);
 				requestObject.setPostParameters(postParameters);
 				try {
 					requestObject = HttpRequestCall.executeHttpPost(requestObject);
@@ -135,7 +137,7 @@ private static AlbumService instance = new AlbumService();
 
 		HttpRequestObject response = null;
 		try {
-			response = new GetAlbum().execute(GET_ALBUM_URL,weddingId).get();
+			response = new GetAlbum().execute(GET_ALBUM_URL, weddingId, token).get();
 		} catch (Exception e) {
 			Log.e("AlbumService", "Error occured while getting album.", e);
 			throw new Exception("Error occured while getting album.");
