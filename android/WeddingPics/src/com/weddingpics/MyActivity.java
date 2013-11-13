@@ -1,11 +1,11 @@
 package com.weddingpics;
 
-import com.weddingpics.util.SessionManager;
-
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.weddingpics.util.SessionManager;
 
 public class MyActivity extends Activity {
 	
@@ -13,9 +13,14 @@ public class MyActivity extends Activity {
 	
 	  @Override  
 	    public boolean onCreateOptionsMenu(Menu menu) {  
-	        // Inflate the menu; this adds items to the action bar if it is present.  
-	        getMenuInflater().inflate(R.menu.menu_main, menu);//Menu Resource, Menu  
-	        return true;  
+	        // Inflate the menu; this adds items to the action bar if it is present. 
+		  	session = new SessionManager(getApplicationContext());
+		  	if (session.isLoggedIn()) {
+		        getMenuInflater().inflate(R.menu.menu_main, menu);//Menu Resource, Menu  
+		        return true;
+		  	} else {
+		  		return false;
+		  	}
 	    }  
 	      
 	    @Override  

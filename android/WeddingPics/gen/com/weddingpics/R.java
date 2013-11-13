@@ -74,73 +74,78 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int transculent_box=0x7f02001d;
         public static final int tweed=0x7f02001e;
         public static final int tweed_bkg=0x7f02001f;
-        public static final int user_image=0x7f020020;
-        public static final int white_box=0x7f020021;
+        public static final int unknown_user=0x7f020020;
+        public static final int user_image=0x7f020021;
+        public static final int white_box=0x7f020022;
     }
     public static final class id {
-        public static final int YourWeddingId=0x7f090031;
-        public static final int action_settings=0x7f090043;
+        public static final int YourWeddingId=0x7f090033;
+        public static final int action_settings=0x7f090047;
         public static final int albumListView=0x7f09000f;
         public static final int album_desc=0x7f09000e;
         public static final int bridebtn=0x7f09001d;
         public static final int brideguestsLayout=0x7f09001c;
-        public static final int buttonSmallText=0x7f090042;
-        public static final int buttonText=0x7f090041;
+        public static final int buttonSmallText=0x7f090046;
+        public static final int buttonText=0x7f090045;
         public static final int cover_image=0x7f090007;
         public static final int createAlbumbutton=0x7f090011;
-        public static final int emailId=0x7f09002f;
-        public static final int emailInput=0x7f09002b;
+        public static final int deleteimage=0x7f090020;
+        public static final int emailId=0x7f090031;
+        public static final int emailInput=0x7f09002d;
         public static final int enterWeddingIdLayout=0x7f090010;
-        public static final int fianceNameInput=0x7f090036;
-        public static final int firstNameInput=0x7f090035;
+        public static final int fianceNameInput=0x7f090038;
+        public static final int firstNameInput=0x7f090037;
         public static final int first_user=0x7f090003;
-        public static final int forgotPasswordLink=0x7f090022;
+        public static final int forgotPasswordLink=0x7f090024;
         public static final int forgotPwd=0x7f09001a;
-        public static final int fullNameInput=0x7f09002a;
-        public static final int fullname=0x7f090027;
-        public static final int goToAlbmBtn=0x7f090034;
-        public static final int gotoweddings=0x7f090024;
+        public static final int fullNameInput=0x7f09002c;
+        public static final int fullname=0x7f090029;
+        public static final int goToAlbmBtn=0x7f090036;
+        public static final int gotoweddings=0x7f090026;
         public static final int guestsbtn=0x7f09001e;
-        public static final int image=0x7f09003e;
+        public static final int image=0x7f090041;
+        public static final int imageView=0x7f09001f;
         public static final int imageView1=0x7f090015;
+        public static final int imagecaption=0x7f090042;
+        public static final int imagedate=0x7f090040;
         public static final int loginLayout=0x7f09001b;
         public static final int loginLinkButton=0x7f090014;
-        public static final int loginSubmitButton=0x7f090021;
-        public static final int loginemail=0x7f09001f;
-        public static final int menulogout=0x7f090044;
-        public static final int newAlbumButton=0x7f09003f;
-        public static final int nextExistingUserBtn=0x7f090030;
-        public static final int nextNewUserBtn=0x7f09002e;
-        public static final int nextbtn=0x7f090033;
-        public static final int password=0x7f090020;
-        public static final int passwordInput=0x7f09002d;
+        public static final int loginSubmitButton=0x7f090023;
+        public static final int loginemail=0x7f090021;
+        public static final int menulogout=0x7f090048;
+        public static final int newAlbumButton=0x7f090043;
+        public static final int nextExistingUserBtn=0x7f090032;
+        public static final int nextNewUserBtn=0x7f090030;
+        public static final int nextbtn=0x7f090035;
+        public static final int password=0x7f090022;
+        public static final int passwordInput=0x7f09002f;
         public static final int pictureDescription=0x7f090016;
-        public static final int picture_date=0x7f09003b;
-        public static final int picture_id=0x7f09003a;
-        public static final int rarr=0x7f090040;
-        public static final int retypeEmailInput=0x7f09002c;
-        public static final int retypeemail=0x7f090029;
+        public static final int picture_date=0x7f09003d;
+        public static final int picture_id=0x7f09003c;
+        public static final int rarr=0x7f090044;
+        public static final int retypeEmailInput=0x7f09002e;
+        public static final int retypeemail=0x7f09002b;
         public static final int save_photo=0x7f090017;
         public static final int scrollView=0x7f090002;
         public static final int secind_user=0x7f090005;
         public static final int share_wedding_id=0x7f09000d;
-        public static final int signUpLinkButton=0x7f090023;
-        public static final int signupSubmitButton=0x7f090026;
-        public static final int signupemail=0x7f090028;
+        public static final int signUpLinkButton=0x7f090025;
+        public static final int signupSubmitButton=0x7f090028;
+        public static final int signupemail=0x7f09002a;
         public static final int take_picture=0x7f090001;
         public static final int texter=0x7f090013;
         public static final int topDetailsCont=0x7f090006;
         public static final int uploadLayout=0x7f090000;
-        public static final int userAlbumListView=0x7f090025;
-        public static final int userDetailBox=0x7f09003c;
-        public static final int user_image=0x7f090038;
-        public static final int user_name=0x7f090039;
-        public static final int username=0x7f09003d;
+        public static final int userAlbumListView=0x7f090027;
+        public static final int userDetailBox=0x7f09003e;
+        public static final int user_image=0x7f09003a;
+        public static final int user_name=0x7f09003b;
+        public static final int username=0x7f09003f;
         public static final int viewAlbumButton=0x7f090012;
         public static final int wedDetailsRight=0x7f090008;
         public static final int wedIdBtn=0x7f090019;
-        public static final int weddingDateInput=0x7f090037;
-        public static final int weddingId=0x7f090032;
+        public static final int weddingDateInput=0x7f090039;
+        public static final int weddingId=0x7f090034;
         public static final int weddingIdBox=0x7f09000a;
         public static final int weddingIdInput=0x7f090018;
         public static final int wedding_date=0x7f090009;
@@ -154,20 +159,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_camera=0x7f030002;
         public static final int activity_guests=0x7f030003;
         public static final int activity_home=0x7f030004;
-        public static final int activity_login=0x7f030005;
-        public static final int activity_myweddings=0x7f030006;
-        public static final int activity_signup=0x7f030007;
-        public static final int activity_wedding_setup_one=0x7f030008;
-        public static final int activity_wedding_setup_three=0x7f030009;
-        public static final int activity_wedding_setup_two=0x7f03000a;
-        public static final int album_photo_list=0x7f03000b;
-        public static final int dialog_signin=0x7f03000c;
-        public static final int image_entry=0x7f03000d;
-        public static final int invite_guests_button=0x7f03000e;
-        public static final int new_album_button=0x7f03000f;
-        public static final int next_pink_button=0x7f030010;
-        public static final int view_album_button=0x7f030011;
-        public static final int view_album_button1=0x7f030012;
+        public static final int activity_image=0x7f030005;
+        public static final int activity_login=0x7f030006;
+        public static final int activity_myweddings=0x7f030007;
+        public static final int activity_signup=0x7f030008;
+        public static final int activity_wedding_setup_one=0x7f030009;
+        public static final int activity_wedding_setup_three=0x7f03000a;
+        public static final int activity_wedding_setup_two=0x7f03000b;
+        public static final int album_photo_list=0x7f03000c;
+        public static final int dialog_signin=0x7f03000d;
+        public static final int image_entry=0x7f03000e;
+        public static final int invite_guests_button=0x7f03000f;
+        public static final int new_album_button=0x7f030010;
+        public static final int next_pink_button=0x7f030011;
+        public static final int view_album_button=0x7f030012;
+        public static final int view_album_button1=0x7f030013;
     }
     public static final class menu {
         public static final int bride=0x7f080000;
@@ -198,18 +204,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
-
         
 
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
-
     
  API 11 theme customizations can go here. 
 
