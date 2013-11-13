@@ -14,5 +14,6 @@
     <string name="title_activity_wedding_setup_one">WeddingSetupOneActivity</string>
     <string name="title_activity_wedding_setup_two">WeddingSetupTwoActivity</string>
     <string name="title_activity_wedding_setup_three">WeddingSetupThreeActivity</string>
+    <string name="ampersand">&amp;</string>
 
 </resources>

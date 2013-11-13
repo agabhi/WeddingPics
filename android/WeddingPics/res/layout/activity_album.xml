@@ -1,180 +1,207 @@
-		<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:layout_width="wrap_content"
-	    android:layout_height="fill_parent"
-	    android:isScrollContainer="true"
-	    android:overScrollMode="always"
-	    android:scrollbarAlwaysDrawVerticalTrack="true"
-	    android:scrollbarStyle="outsideInset"
-	    android:scrollbars="vertical" >
-     
-<LinearLayout 
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="0dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:orientation="vertical"
-    android:padding="0dp" >
-    
-    <LinearLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+     <LinearLayout
+        android:id="@+id/uploadLayout"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:background="@color/Marble_Blue"
-        android:textAlignment="center">
-        
-          			<TextView
-          			    android:id="@+id/first_user"
-          			    android:layout_width="wrap_content"
-          			    android:layout_height="36dp"
-          			    android:layout_marginLeft="120dp"
-          			    android:layout_marginTop="10dp"
-          			    android:text="Ritesh"
-          			    android:textColor="@color/Platinum"
-          			    android:textSize="18sp"
-          			    android:textStyle="bold|italic" >
-
-			        </TextView>
-			        
-           			<TextView
-           			    android:id="@+id/wedds"
-           			    android:layout_width="wrap_content"
-           			    android:layout_height="36dp"
-           			    android:layout_marginLeft="4dp"
-           			    android:layout_marginTop="10dp"
-           			    android:textColor="@color/Platinum"
-           			    android:text="weds"
-           			    android:textSize="14sp"
-           			    android:textStyle="bold|italic" >
-
-			        </TextView>
-			        
-            		<TextView
-            		    android:id="@+id/secind_user"
-            		    android:layout_width="wrap_content"
-            		    android:layout_height="36dp"
-            		    android:layout_marginLeft="4dp"
-            		    android:layout_marginTop="10dp"
-            		    android:textColor="@color/Platinum"
-            		    android:text="Roshani"
-            		    android:textSize="18sp"
-            		    android:textStyle="bold|italic" >
-
-			        </TextView>
-         
-        </LinearLayout>
-    
- <!-- ==========================================================Album Title Start=========================================================================================-->
-  <LinearLayout
-      android:layout_width="fill_parent"
-      android:layout_height="240dp"
-      android:background="@drawable/album_profile"
-      android:orientation="vertical"
-      android:padding="4dp" >
-
-  <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
 
-	     <ImageView
-	        android:id="@+id/cover_image"
-	        android:layout_width="200dp"
-	        android:layout_height="140dp"
-	        android:background="@drawable/album_profile"
-	        android:contentDescription="Click here for more info">
-		 </ImageView>
-
-		    <LinearLayout
-		        android:layout_width="fill_parent"
-		        android:layout_height="140dp"
-		        android:layout_marginLeft="3dp"
-		        android:layout_marginRight="3dp"
-		        android:orientation="vertical" >
-	
-			        <TextView
-			            android:id="@+id/wedding_date"
-			            android:layout_width="fill_parent"
-			            android:layout_height="36dp"
-			            android:gravity="center"
-			            android:text="XXXXXXXX"
-			            android:textSize="14sp"
-			            android:textStyle="bold|italic" >
-			        </TextView>
-		
-				        <LinearLayout
-				            android:layout_width="fill_parent"
-				            android:layout_height="66dp"
-				            android:orientation="vertical" >
-			
-					            <TextView
-					                android:id="@+id/wedding_id_text"
-					                android:layout_width="fill_parent"
-					                android:layout_height="29dp"
-					                android:background="@color/gray"
-					                android:textColor="@color/white"
-					                android:gravity="center"
-					                android:text=" Wedding Id : "
-					                android:textSize="12sp" >
-					            </TextView>
-				
-					            <TextView
-					                android:id="@+id/wedding_id"
-					                android:layout_width="fill_parent"
-					                android:layout_height="28dp"
-					                android:background="@color/Platinum"
-					                android:gravity="center"
-					                android:text=" XXXXXXX "
-					                android:textSize="12sp" >
-					            </TextView>
-				        </LinearLayout>
-		
-			        <Button
-			            android:id="@+id/share_wedding_id"
-			            android:layout_width="fill_parent"
-			            android:layout_height="40dp"
-			            android:text="Share Wedding Id"
-			            android:textColor="@color/white"
-			            android:background="@color/Deep_Pink"
-			            android:textSize="12sp" >
-			        </Button>
-		 </LinearLayout>
+        <Button
+            android:id="@+id/take_picture"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Steel_Blue"
+            android:text="UPLOAD"
+            android:textColor="@color/white"
+            android:textSize="12sp" >
+        </Button>
     </LinearLayout>
+    
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/uploadLayout"
+        android:isScrollContainer="true"
+        android:overScrollMode="always"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical" >
 
-  <TextView
-      android:id="@+id/album_desc"
-      android:layout_width="fill_parent"
-      android:layout_height="60dp"
-      android:text="XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-      android:textColor="@color/Cloudy_Gray"
-      android:textSize="12sp"/>
-  	
-        			<Button
-			            android:id="@+id/read_more"
-			            android:layout_width="100dp"
-			            android:layout_height="20dp"
-			            android:text="READ MORE"
-			            android:layout_marginLeft="100dp"
-			            android:textColor="@color/white"
-			            android:background="@color/lightgray"
-			            android:textSize="12sp" 
-		    			android:gravity="center_horizontal"
-		    			android:visibility="gone">
-			        </Button>
-</LinearLayout>
-<!-- ==========================================================Album Title End===========================================================================================-->
-<Button
-         android:id="@+id/take_picture"
-         android:layout_width="fill_parent"
-         android:layout_height="40dp"
-         android:text=" CLICK HERE AND TAKE NEW PICTURE "
-         android:textColor="@color/white"
-         android:background="@color/Steel_Blue"
-         android:textSize="12sp" >
- </Button>
- <ListView
-     android:id="@+id/albumListView"
-     android:layout_width="fill_parent"
-     android:layout_height="2000dp" />
-</LinearLayout>
-</ScrollView>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical" >
+
+            <!-- Start: Container for wedding title -->
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#080808"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:textAlignment="center" >
+
+                <TextView
+                    android:id="@+id/first_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/wedds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/first_user"
+                    android:text=""
+                    android:textColor="@color/pink"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:typeface="serif" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/secind_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/wedds"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" >
+                </TextView>
+            </RelativeLayout>
+            <!-- End: Container for wedding title -->
+
+
+            <!-- Start: Container for wedding details box -->
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bkg3_bkg"
+                android:orientation="vertical"
+                android:padding="4dp" >
+
+                <RelativeLayout
+                    android:id="@+id/topDetailsCont"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <!-- Column1 -->
+
+                    <ImageView
+                        android:id="@+id/cover_image"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="@color/Steel_Blue"
+                        android:contentDescription="Album Cover"
+                        android:scaleType="fitStart" >
+                    </ImageView>
+
+                    <!-- Column2 -->
+
+                    <RelativeLayout
+                        android:id="@+id/wedDetailsRight"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/cover_image" >
+
+                        <TextView
+                            android:id="@+id/wedding_date"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:gravity="center"
+                            android:text=""
+                            android:textSize="14sp"
+                            android:textStyle="bold" >
+                        </TextView>
+
+                        <LinearLayout
+                            android:id="@+id/weddingIdBox"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/wedding_date"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/gray_border"
+                            android:orientation="vertical"
+                            android:padding="2dp" >
+
+                            <TextView
+                                android:id="@+id/wedding_id_text"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/gray"
+                                android:gravity="center"
+                                android:text="WEDDING ID"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" >
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/wedding_id"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/Platinum"
+                                android:gravity="center"
+                                android:text=""
+                                android:textColor="@color/black_overlay"
+                                android:textSize="12sp" >
+                            </TextView>
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/share_wedding_id"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/weddingIdBox"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/pink_box"
+                            android:text="Share Wedding Id"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" >
+                        </Button>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/album_desc"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/topDetailsCont"
+                    android:text=""
+                    android:textColor="@color/Cloudy_Gray"
+                    android:textSize="9sp" />
+            </RelativeLayout>
+            <!-- ==========================================================Album Title End=========================================================================================== -->
+
+            <LinearLayout
+                android:id="@+id/albumListView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </ScrollView>
+
+   
+
+</RelativeLayout>

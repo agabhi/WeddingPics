@@ -2,70 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/tweed_bkg"
     android:orientation="vertical" >
 
-     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:text="Click Picture than write desctiption and save it in album." 
-        android:textColor="@color/Steel_Blue"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:background="@color/Marble_Blue"/>
-     
-    <ImageView
+    <com.weddingpics.view.ResizeableImageView
         android:id="@+id/imageView1"
         android:layout_width="fill_parent"
-        android:layout_height="270dp"
-        android:background="@drawable/album_profile" />
-    
-     <EditText
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:contentDescription="Image" >
+    </com.weddingpics.view.ResizeableImageView>
+
+    <EditText
         android:id="@+id/pictureDescription"
         android:layout_width="fill_parent"
         android:layout_height="30dp"
         android:layout_marginTop="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginLeft="3dp"
-        android:textColor="@color/Steel_Blue"
-        android:background="@color/Marble_Blue"
-        android:hint="Picture Description" />
-    
+        android:textSize="10dp"
+        android:background="@drawable/gray_border_white_fill"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:hint="Caption"
+        android:textColor="@color/gray" />
 
-    <Button
-        android:id="@+id/click_photo"
-        android:layout_width="fill_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginLeft="3dp"
-        android:text="TAKE PHOTO" 
-        android:textColor="@color/Steel_Blue"
-        android:onClick="onClick"
-        android:background="@color/Marble_Blue"/>
-    
     <Button
         android:id="@+id/save_photo"
         android:layout_width="fill_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginBottom="3dp"
-        android:textColor="@color/Steel_Blue"
-        android:text="SAVE PHOTO"
-        android:background="@color/Marble_Blue" />
-    
-     <Button
-        android:id="@+id/cover_photo"
-        android:layout_width="fill_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginBottom="3dp"
-        android:textColor="@color/Steel_Blue"
-        android:text="MAKE ALBUM COVER"
-        android:background="@color/Marble_Blue" />
-  
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/pink_box"
+        android:text="PUBLISH"
+        android:textColor="@color/white" />
 
 </LinearLayout>
