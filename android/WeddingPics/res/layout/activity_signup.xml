@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bkg2"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/brideguestsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/signupSubmitButton"
+        android:layout_alignParentLeft="true"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="@string/password"
+        android:inputType="textPassword" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/signupSubmitButton"
+        style="@style/MyCoolButton"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/brideguestsLayout"
+        android:background="@drawable/blue_box_no_border"
+        android:text="Sign Up" />
+
+    <EditText
+        android:id="@+id/fullname"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:hint="FULL NAME"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/signupemail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/fullname"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/retypeemail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/password"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:hint="RETYPE EMAIL ADDRESS"
+        android:inputType="textEmailAddress" />
+
+</RelativeLayout>

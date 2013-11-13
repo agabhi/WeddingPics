@@ -1,6 +1,7 @@
 package com.weddingpics.model;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 public class User implements Serializable{
@@ -15,7 +16,7 @@ public class User implements Serializable{
 	private String emailId;
 	private String token;
 	private Date modifyDttm;
-	
+	private List<Album> albums;
 	
 	public Long getUserId() {
 		return userId;
@@ -52,6 +53,12 @@ public class User implements Serializable{
 	}
 	public void setModifyDttm(Date modifyDttm) {
 		this.modifyDttm = modifyDttm;
+	}
+	public List<Album> getAlbums() {
+		return albums;
+	}
+	public void setAlbums(List<Album> albums) {
+		this.albums = albums;
 	}
 	
 	

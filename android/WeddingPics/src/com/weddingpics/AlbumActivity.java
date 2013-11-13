@@ -3,8 +3,10 @@ package com.weddingpics;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,12 +35,19 @@ import com.weddingpics.model.Picture;
 import com.weddingpics.model.ServerResponseObject;
 import com.weddingpics.service.AlbumService;
 import com.weddingpics.service.LoadImageService;
-import com.weddingpics.util.ImageHelper;
 
-public class AlbumActivity extends Activity {
+import com.weddingpics.util.ImageHelper;
+import com.weddingpics.util.AlbumPictureListAdapter;
+import com.weddingpics.util.SessionManager;
+
+
+
+public class AlbumActivity extends MyActivity {
+	
 
 	final Context context = this;
 	Album album = null;
+
 
 	private static final int CAMERA_REQUEST = 1888;
 	private static final int IMAGE_FROM_GALLERY = 1;
@@ -54,11 +63,16 @@ public class AlbumActivity extends Activity {
 
 	String weddingId;
 
+
+	SessionManager session;
+	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_album);
+
 
 		TextView wedds = (TextView) findViewById(R.id.wedds);
 		firstName = (TextView) findViewById(R.id.first_user);
@@ -73,6 +87,9 @@ public class AlbumActivity extends Activity {
 		cover_image = (ImageView) findViewById(R.id.cover_image);
 
 		lv1 = (LinearLayout) findViewById(R.id.albumListView);
+
+
+		session = new SessionManager(getApplicationContext());
 
 		Intent intentData = getIntent();
 
@@ -177,7 +194,7 @@ public class AlbumActivity extends Activity {
 
 	private void refreshAlbum() {
 		try {
-			HttpRequestObject response = AlbumService.getInstance().getAlbum(weddingId);
+			HttpRequestObject response = AlbumService.getInstance().getAlbum(weddingId,session.getUserToken());
 			Gson gson = new Gson();
 			ServerResponseObject serverResponseObject = gson.fromJson(response.getResponse(), ServerResponseObject.class);
 			if (serverResponseObject.getIsSuccess()) {

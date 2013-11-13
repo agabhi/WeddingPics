@@ -55,6 +55,12 @@
          <activity
             android:name="com.weddingpics.CameraActivity">
         </activity>
+        <activity
+            android:name="com.weddingpics.SignUpActivity">
+        </activity>
+        <activity
+            android:name="com.weddingpics.MyWeddingsActivity">
+        </activity>
     </application>
 
 </manifest>

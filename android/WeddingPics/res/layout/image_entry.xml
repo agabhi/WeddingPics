@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <LinearLayout
+        android:id="@+id/userDetailBox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/user_image"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:adjustViewBounds="true"
+            android:contentDescription="User Image"
+            android:scaleType="fitStart" >
+        </ImageView>
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-4dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="bottom"
+            android:includeFontPadding="false"
+            android:text=""
+            android:textAlignment="gravity"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            android:textStyle="bold" >
+        </TextView>
+    </LinearLayout>
+
+    <com.weddingpics.view.ResizeableImageView
+        android:id="@+id/image"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userDetailBox"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:contentDescription="Image" >
+    </com.weddingpics.view.ResizeableImageView>
+
+</RelativeLayout>
