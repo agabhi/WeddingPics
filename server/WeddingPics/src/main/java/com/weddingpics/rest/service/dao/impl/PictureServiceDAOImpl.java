@@ -64,7 +64,7 @@ public class PictureServiceDAOImpl implements PictureServiceDAO {
 		Session session = sessionFactory.getCurrentSession();
 		try
 		{
-			session.createSQLQuery("delete from Picture where pictureId in (:list)").setParameterList("list", idList).executeUpdate();
+			session.createSQLQuery("delete from picture where pictureId in (:list)").setParameterList("list", idList).executeUpdate();
 		}
 		finally
 		{
