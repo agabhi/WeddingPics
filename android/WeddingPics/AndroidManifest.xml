@@ -61,6 +61,10 @@
         <activity
             android:name="com.weddingpics.MyWeddingsActivity">
         </activity>
+        <activity
+            android:name="com.weddingpics.ImageActivity">
+        </activity>
+        
     </application>
 
 </manifest>

@@ -1,0 +1,40 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="wrap_content"
+	    android:layout_height="fill_parent"
+	    android:isScrollContainer="true"
+	    android:overScrollMode="always"
+	    android:scrollbarAlwaysDrawVerticalTrack="true"
+	    android:scrollbarStyle="outsideInset"
+	    android:scrollbars="vertical" >
+     
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="0dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:padding="0dp" >
+    
+       <com.weddingpics.view.ResizeableImageView
+	        android:id="@+id/imageView"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@color/white"
+	        android:contentDescription="Image" >
+    	</com.weddingpics.view.ResizeableImageView>
+    
+   		     <Button
+			            android:id="@+id/deleteimage"
+			            android:layout_width="fill_parent"
+			            android:layout_height="40dp"
+			            android:layout_marginRight="5dp"
+			            android:gravity="center"
+			            android:text="DELETE IMAGE"
+			            android:textColor="@color/black_overlay"
+			            android:background="@color/Steel_Blue"
+			            android:textSize="12sp" >
+			        </Button>
+  				    
+</LinearLayout>
+</ScrollView>

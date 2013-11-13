@@ -453,11 +453,58 @@ public class UserController {
 		    	
 		    } else {
 		    	response.setErrorMessage("USER NOT FOUND FOR THAT TOKEN!");
-				response.setIsSuccess(false);
+				response.setIsSuccess(true);
 		    }
 			
 		} else if (StringUtils.isBlank(token)) {
 			response.setErrorMessage("USER TOKEN NOT BLANK!");
+			response.setIsSuccess(false);
+		}
+		return gson.toJson(response);
+	}
+	
+	/**
+	 * This method get all albums info for user 
+	 * @param model
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	@RequestMapping(value="/uc/deleteImage", method = RequestMethod.POST ,produces = "application/json")
+	 public @ResponseBody String deleteImage(Model model, HttpServletRequest request) throws Exception {
+		
+		ClientResponseObject response = new ClientResponseObject(); 
+		Gson gson = new Gson();
+		
+		Long imageId = StringUtils.isNotBlank(request.getParameter("imageId"))?Long.parseLong(request.getParameter("imageId")):null;
+		
+		if (imageId != null) {
+			com.weddingpics.rest.entity.Picture picture = pictureService.findPictureById(1L);
+			if (picture != null) {
+				File file = new File(IMAGE_LOCATION + picture.getAlbum().getAlbumId()+"/"+picture.getUrl());
+				if(file.exists()){
+			      Boolean isFileDelete = file.delete();
+			      if (isFileDelete) {
+			    	    String [] ids = new String [1];
+						ids[0] = imageId.toString();
+						pictureService.deletePictures(ids);
+						response.setIsSuccess(true);
+			      }else {
+			    	  response.setErrorMessage("IMAGE  NOT DELETED IN SYSTEM!");
+						response.setIsSuccess(false);
+			      }
+			    } else {
+			    	response.setErrorMessage("IMAGE  NOT EXIST IN SERVER!");
+					response.setIsSuccess(false);
+			    }
+				
+			}else {
+				response.setErrorMessage("IMAGE  NOT FOUND IN SYSTEM!");
+				response.setIsSuccess(false);
+			}
+		} else if (imageId == null) {
+			response.setErrorMessage("IMAGE ID NOT NULL");
 			response.setIsSuccess(false);
 		}
 		return gson.toJson(response);

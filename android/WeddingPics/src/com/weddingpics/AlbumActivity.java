@@ -3,10 +3,7 @@ package com.weddingpics;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-
-import android.app.Activity;
 import android.app.AlertDialog;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,9 +32,7 @@ import com.weddingpics.model.Picture;
 import com.weddingpics.model.ServerResponseObject;
 import com.weddingpics.service.AlbumService;
 import com.weddingpics.service.LoadImageService;
-
 import com.weddingpics.util.ImageHelper;
-import com.weddingpics.util.AlbumPictureListAdapter;
 import com.weddingpics.util.SessionManager;
 
 
@@ -148,10 +143,28 @@ public class AlbumActivity extends MyActivity {
 				View view = inflater.inflate(R.layout.image_entry, null);
 				TextView userName = (TextView) view.findViewById(R.id.username);
 				userName.setText(picture.getUser().getFullName());
+				TextView imagedate = (TextView) view.findViewById(R.id.imagedate);
+				SimpleDateFormat  dateFormat = new SimpleDateFormat(" MMM dd yyy,hh:ss a");
+				imagedate.setText(dateFormat.format(picture.getPictureDate()));
 				ImageView image = (ImageView) view.findViewById(R.id.image);
+				image.setClickable(true);
+				image.setTag(picture);
+				image.setOnClickListener(new View.OnClickListener(){
+				    public void onClick(View v) {
+				    	Picture clickPicture = (Picture)v.getTag();
+				    	Intent intent = new Intent(getBaseContext(), ImageActivity.class);
+						intent.putExtra("url", clickPicture.getUrl());
+						intent.putExtra("weddingId", album.getWeddingId());
+						intent.putExtra("imageId", clickPicture.getPictureId());
+						startActivity(intent);
+				    }
+				});
 				ImageView userImage = (ImageView) view.findViewById(R.id.user_image);
 				image.setImageBitmap(LoadImageService.loadBitmap(picture.getUrl()));
-				userImage.setImageBitmap(ImageHelper.getRoundedCornerBitmap(LoadImageService.loadBitmap(picture.getUrl()), 12));
+				Bitmap  unknown_user =    BitmapFactory.decodeResource(getResources(), R.drawable.unknown_user);
+				userImage.setImageBitmap(ImageHelper.getRoundedCornerBitmap(unknown_user, 12));
+				TextView imagecaption = (TextView) view.findViewById(R.id.imagecaption);
+				imagecaption.setText(picture.getPictureTitle());
 				lv1.addView(view);
 			}
 		}

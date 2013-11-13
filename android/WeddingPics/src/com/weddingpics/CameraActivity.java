@@ -24,7 +24,7 @@ public class CameraActivity extends MyActivity {
 	  private static final int CAMERA_REQUEST = 1888; 
 	  private ImageView imageView;
 	  private EditText imageDesc;  
-	  private Bitmap photo = null;
+	  private Bitmap imageBitMap;
 	  SessionManager session;
 
 	    @Override
@@ -38,7 +38,7 @@ public class CameraActivity extends MyActivity {
 	    	Intent intentData = getIntent();
 
 			final Long albumId = (Long) intentData.getSerializableExtra("albumId");
-			final Bitmap imageBitMap = (Bitmap) intentData.getParcelableExtra("imageBitMap");
+			imageBitMap = (Bitmap) intentData.getParcelableExtra("imageBitMap");
 	        this.imageView = (ImageView)this.findViewById(R.id.imageView1);
 	        this.imageDesc = (EditText)this.findViewById(R.id.pictureDescription);
 	        
@@ -48,9 +48,9 @@ public class CameraActivity extends MyActivity {
 
 	            @Override
 	            public void onClick(View v) {
-	            	if (albumId != null && photo != null) {
+	            	if (albumId != null && imageBitMap != null) {
 	            		try {
-							HttpRequestObject response  = SaveImageService.getInstance().saveImage(photo, albumId, ImageTypeEnum.WEDDING.getValue(), imageDesc.getText().toString(), session.getUserToken());
+							HttpRequestObject response  = SaveImageService.getInstance().saveImage(imageBitMap, albumId, ImageTypeEnum.WEDDING.getValue(), imageDesc.getText().toString(), session.getUserToken());
 							Gson gson = new Gson();
 							ServerResponseObject serverResponseObject = gson.fromJson(response.getResponse(), ServerResponseObject.class);
 							if (serverResponseObject != null && serverResponseObject.getIsSuccess()) {
@@ -65,7 +65,7 @@ public class CameraActivity extends MyActivity {
 	            	} else if (albumId == null){
 	            		Log.i("CameraActivity", "Album id not blank.");
 	            		Toast.makeText(CameraActivity.this,"Album id not blank.", Toast.LENGTH_LONG).show();
-	            	} else if (photo == null){
+	            	} else if (imageBitMap == null){
 	            		Log.i("CameraActivity", "First Take a photo. than call save");
 	            		Toast.makeText(CameraActivity.this,"First Take a photo. than call save", Toast.LENGTH_LONG).show();
 	            	} 
@@ -77,8 +77,8 @@ public class CameraActivity extends MyActivity {
 
 	    protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
 	        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {  
-	            photo = (Bitmap) data.getExtras().get("data"); 
-	            imageView.setImageBitmap(photo);
+	        	imageBitMap = (Bitmap) data.getExtras().get("data"); 
+	            imageView.setImageBitmap(imageBitMap);
 	        }  
 	    } 
 }

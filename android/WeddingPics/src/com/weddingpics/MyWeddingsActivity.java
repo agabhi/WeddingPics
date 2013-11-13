@@ -3,10 +3,13 @@ package com.weddingpics;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -34,13 +37,23 @@ public class MyWeddingsActivity extends MyActivity {
 	    	try {
 				HttpRequestObject response = UserService.getInstance().userAlbums(session.getUserToken());
 				Gson gson = new Gson();
-				ServerResponseObject serverResponseObject = gson.fromJson(response.getResponse(), ServerResponseObject.class);
+				final ServerResponseObject serverResponseObject = gson.fromJson(response.getResponse(), ServerResponseObject.class);
 				if (serverResponseObject.getIsSuccess()) {
 					if (serverResponseObject.getUser() != null && serverResponseObject.getUser().getAlbums() != null && serverResponseObject.getUser().getAlbums().size() > 0) {
 						  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				                    android.R.layout.simple_list_item_1, getWeddings(serverResponseObject.getUser().getAlbums()));
 				        
-						  userAlbumListView.setAdapter(adapter);						
+						  userAlbumListView.setAdapter(adapter);
+						  final OnItemClickListener itemClickedHandler = new OnItemClickListener() {
+						  public void onItemClick(AdapterView parent, View v, int position, long id)
+									    {
+									        String weddingId = serverResponseObject.getUser().getAlbums().get(position).getWeddingId();
+									        Intent intent = new Intent(MyWeddingsActivity.this, AlbumActivity.class);
+											intent.putExtra("weddingId",weddingId);
+											startActivity(intent);
+									    }
+						    };
+						  userAlbumListView.setOnItemClickListener(itemClickedHandler);
 					}
 					
 				} else {
@@ -60,16 +73,16 @@ public class MyWeddingsActivity extends MyActivity {
 	        });
 	  }
 	  
+	
+		    
 	  private ArrayList< String> getWeddings(List<Album> albums) {
 		    ArrayList< String> list = new ArrayList<String>();
 		    if (albums != null && albums.size() > 0) {
 		    	for (Album album : albums) {
-		    		list.add(album.getWeddingId());		
+		    		list.add(album.getFirstUser()+" Weds "+album.getSecondUser());		
 		    	}
 		    }
 		    
 		    return list;
 	    }
-
-
 }

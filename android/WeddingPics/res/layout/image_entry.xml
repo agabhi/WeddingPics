@@ -34,6 +34,22 @@
             android:textSize="14sp"
             android:textStyle="bold" >
         </TextView>
+        
+         <TextView
+            android:id="@+id/imagedate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-4dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="bottom"
+            android:includeFontPadding="false"
+            android:text=""
+            android:textAlignment="gravity"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            android:textStyle="bold" >
+        </TextView>
+        
     </LinearLayout>
 
     <com.weddingpics.view.ResizeableImageView
@@ -45,5 +61,18 @@
         android:background="@color/white"
         android:contentDescription="Image" >
     </com.weddingpics.view.ResizeableImageView>
-
+    
+           
+  		<TextView
+            android:id="@+id/imagecaption"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_below="@id/image"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            android:textStyle="bold" >
+        </TextView>
+        
+    
 </RelativeLayout>
