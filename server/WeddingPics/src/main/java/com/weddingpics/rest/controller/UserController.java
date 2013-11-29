@@ -147,6 +147,13 @@ public class UserController {
 				album.setWeddingId(weddingId);
 				album.setModifyDttm(new Date());
 				albumService.addAlbum(album);
+				
+				UserAlbum userAlbum =  new UserAlbum();
+				userAlbum.setAlbum(album);
+				userAlbum.setUser(user);
+				userAlbum.setModifyDttm(new Date());
+				userService.addUserAlbum(userAlbum);
+				
 				response.setAlbum(EntityToVOConverter.convertToVO(album)); //Set Album information in response object.  
 				response.setIsSuccess(true);
 			} else {
